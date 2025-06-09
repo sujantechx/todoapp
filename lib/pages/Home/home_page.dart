@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../datbase/database_helper.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -8,7 +10,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  DBHelper? dbHelper;
+  List<Map<String,dynamic>> allTodo=[];
+  @override
+  void initState() {
+    super.initState();
+    dbHelper=DBHelper.getInstance();
+    getAllTodo();
+  }
+  void getAllTodo()async{
+    allTodo=await dbHelper!.fetchTodo();
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,69 +60,74 @@ class _HomePageState extends State<HomePage> {
               /// Listview builder
               SizedBox(
                 height: 150,
-                child: ListView.builder(itemBuilder: (context, index) {
-                  return Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration:BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child:allTodo.isNotEmpty? ListView.builder(
+                  itemCount: allTodo.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration:BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Exercise",style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(allTodo[index][DBHelper.c_todoTitle],style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),),
 
-                            Text("Carry out a yoga session",style: TextStyle(
-                              fontSize: 12,
-                            ),),
-                            SizedBox(height: 10,),
+                                Text(allTodo[index][DBHelper.c_todoDesc],style: TextStyle(
+                                  fontSize: 12,
+                                ),),
+                                SizedBox(height: 10,),
 
-                            Text("Date time",style: TextStyle(
-                              fontSize: 12,
-                            ),),
+                                Text(allTodo[index][DBHelper.c_todoTaskDeadline],style: TextStyle(
+                                  fontSize: 12,
+                                ),),
 
+
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.edit),
+
+                                SizedBox(height: 10,),
+
+                                Row(
+                                  children: [
+                                    Text("Mark as complete  ",style: TextStyle(
+                                      fontSize: 12,
+                                    ),),
+                                    Icon(Icons.check_box_outline_blank)
+                                  ],
+                                ),
+
+
+                              ],
+                            )
 
                           ],
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(Icons.edit),
+                      ),
+                    );
 
-                            SizedBox(height: 10,),
-
-                            Row(
-                              children: [
-                                Text("Mark as complete  ",style: TextStyle(
-                                  fontSize: 12,
-                                ),),
-                                Icon(Icons.check_box_outline_blank)
-                              ],
-                            ),
-
-
-                          ],
-                        )
-
-                      ],
-                    ),
-                  );
-
-                },),
-              ),
+                  },):Center(
+                  child: Text("No ToDo List!!"),              ),
 
 
 
-            ],
+              )],
           ),
         ),
       ),
