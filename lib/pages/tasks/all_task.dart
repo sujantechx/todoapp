@@ -7,7 +7,6 @@ class AllTask extends StatefulWidget {
   @override
   State<AllTask> createState() => _AllTaskState();
 }
-
 class _AllTaskState extends State<AllTask> {
   DBHelper? dbHelper;
   List<Map<String,dynamic>> allTodo=[];

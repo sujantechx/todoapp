@@ -199,7 +199,6 @@ class _AddTaskState extends State<AddTask> {
                   );
                   if(check){
                     getAllTodo();
-                    Navigator.pop(context);
                   }
                   print("sucses fully add");
                 },
