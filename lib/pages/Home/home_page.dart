@@ -58,8 +58,7 @@ class _HomePageState extends State<HomePage> {
               ),),
               SizedBox(height: 10,),
               /// Listview builder
-              SizedBox(
-                height: 150,
+              Expanded(
                 child:allTodo.isNotEmpty? ListView.builder(
                   itemCount: allTodo.length,
                   itemBuilder: (context, index) {
