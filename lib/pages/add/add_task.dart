@@ -13,6 +13,8 @@ class _AddTaskState extends State<AddTask> {
   var _titleController=TextEditingController();
   var _taskDescController=TextEditingController();
   var _deadelineController=TextEditingController();
+  var _priorityController=TextEditingController();
+
   DateTime? selectedDate;
   ///date time as calender function
   void _showDateTimePicker(){
@@ -175,7 +177,7 @@ class _AddTaskState extends State<AddTask> {
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -183,8 +185,20 @@ class _AddTaskState extends State<AddTask> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20
                   ),),
-                  
-                  Icon(Icons.check_box_outline_blank)
+                  SizedBox(
+                    height: 30,
+                    width: 40,
+                    child: Center(
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: _priorityController,
+                      decoration: InputDecoration(
+                        focusedBorder:OutlineInputBorder(borderRadius: BorderRadius.circular(2)),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(2))
+                      ),
+                      ),
+                    ),
+                  )
                 ],
               ),
           
@@ -218,3 +232,6 @@ class _AddTaskState extends State<AddTask> {
     );
   }
 }
+
+
+

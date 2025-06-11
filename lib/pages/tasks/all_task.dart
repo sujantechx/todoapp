@@ -25,8 +25,7 @@ class _AllTaskState extends State<AllTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SizedBox(
-          height: 150,
+        child: Expanded(
           child:allTodo.isNotEmpty? ListView.builder(
             itemCount: allTodo.length,
             itemBuilder: (context, index) {

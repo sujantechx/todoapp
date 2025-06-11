@@ -19,7 +19,7 @@ class DBHelper{
   static final c_todoDesc="todo_Desc";
   static final c_todoTaskDeadline="todo_time";
   static final c_todoComplete= "todo_complete";
-  static final c_todoPending= "todo_pending";
+  static final c_todoPriority = "todo_priority";
 
 
   Future<Database> initDB ()async{
@@ -46,21 +46,28 @@ class DBHelper{
           $c_todoDesc text, 
           $c_todoTaskDeadline text ,
           $c_todoComplete integer default 0,
-          $c_todoPending integer default 1)
+          $c_todoPriority integer )
         '''
       );
     });
     }
 
     /// qure add
-    Future<bool> addTodo({required String title ,required String desc,required String deadline})async{
+    Future<bool> addTodo(
+        {required String title ,
+          required String desc,
+          required String deadline,
+          int priority=1
+        })async{
     var db=await initDB(); /// her to call chck condition then add
-      int rewsEffectd=await db.insert(tableTodoName, {
+      int rewsEffected=await db.insert(tableTodoName, {
         c_todoTitle:title,
         c_todoDesc:desc,
-        c_todoTaskDeadline:deadline
+        c_todoTaskDeadline:deadline,
+        c_todoComplete:0,
+        c_todoPriority:priority
       });
-    return rewsEffectd >0;
+    return rewsEffected >0;
     }
 
     ///fetch data
@@ -68,6 +75,27 @@ class DBHelper{
     var db= await initDB();
     List<Map<String,dynamic>> allData=await db.query(tableTodoName);
     return allData;
+    }
+  Future<List<Map<String,dynamic>>> fetchTodoPending()async{
+    var db= await initDB();
+    List<Map<String,dynamic>> allData=await db.query(tableTodoName,where: '$c_todoComplete=?',whereArgs: [0]);
+    return allData;
+  }
+
+  Future<List<Map<String,dynamic>>> fetchTodoComplete()async{
+    var db= await initDB();
+    List<Map<String,dynamic>> allData=await db.query(tableTodoName,where: '$c_todoComplete=?',whereArgs: [1]);
+    return allData;
+  }
+
+    Future<bool> updateTodoCompleted({ required int id,required bool isCompleted})async{
+    var db=await initDB();
+
+    int rowEffected=await db.update(tableTodoName, {
+      c_todoComplete:isCompleted?1 :0
+    },
+    where:"$c_todoId=?",whereArgs:[id]);
+    return rowEffected>0;
     }
 
     ///delete todo list
