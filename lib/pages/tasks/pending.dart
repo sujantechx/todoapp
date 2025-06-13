@@ -42,7 +42,7 @@ class _PendingState extends State<Pending> {
               bgColor=Colors.blue.shade300;
             }
             return InkWell(
-              
+
               child: CheckboxListTile(
                 fillColor: WidgetStatePropertyAll(bgColor),
                  title: Text(allTodo[index][DBHelper.c_todoTitle],style: TextStyle(
