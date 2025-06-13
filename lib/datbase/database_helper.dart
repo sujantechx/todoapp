@@ -71,11 +71,25 @@ class DBHelper{
     }
 
     ///fetch data
-    Future<List<Map<String,dynamic>>> fetchTodo()async{
+    Future<List<Map<String,dynamic>>> fetchAllTodo(int filter)async{
     var db= await initDB();
     List<Map<String,dynamic>> allData=await db.query(tableTodoName);
+
+    if(filter>0){
+      allData=await db.query(tableTodoName,
+      where: "$c_todoComplete=?",
+      whereArgs: [filter==1? 1:0],
+      // orderBy:
+      );
+    }
+    else{
+      allData=await db.query(tableTodoName,
+          orderBy:"c_todoTaskDeadline desc");
+    }
     return allData;
     }
+
+
   Future<List<Map<String,dynamic>>> fetchTodoPending()async{
     var db= await initDB();
     List<Map<String,dynamic>> allData=await db.query(tableTodoName,where: '$c_todoComplete=?',whereArgs: [0]);
@@ -88,10 +102,14 @@ class DBHelper{
     return allData;
   }
 
-    Future<bool> updateTodoCompleted({ required int id,required bool isCompleted})async{
+    Future<bool> updateTodoCompleted({
+      required int id,
+      required bool isCompleted
+    })async{
     var db=await initDB();
 
-    int rowEffected=await db.update(tableTodoName, {
+    int rowEffected=await db.update(
+        tableTodoName, {
       c_todoComplete:isCompleted?1 :0
     },
     where:"$c_todoId=?",whereArgs:[id]);
@@ -101,9 +119,12 @@ class DBHelper{
     ///delete todo list
     Future<int>deleteTodo(int id)async{
     final db=await initDB();
-    return await db.delete(tableTodoName,where: "$c_todoId=?",whereArgs: [id]);
+    return await db.delete(
+        tableTodoName,
+        where: "$c_todoId=?",
+        whereArgs: [id]
+    );
     }
-
     /// update
     Future<int> updateTodo({
     required int id,
