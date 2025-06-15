@@ -19,7 +19,7 @@ class _PendingState extends State<Pending> {
     getAllTodo();
   }
   void getAllTodo()async{
-    allTodo=await dbHelper!.fetchTodo();
+    allTodo=await dbHelper!.fetchTodoPending();
     setState(() {
     });
   }
@@ -32,11 +32,11 @@ class _PendingState extends State<Pending> {
           itemBuilder: (context, index) {
             /// color creaqte
             Color bgColor=Colors.green;
-            if(allTodo[index][DBHelper.c_todoPriority]=='1'){
+            if(allTodo[index][DBHelper.c_todoPriority]==3){
               bgColor=Colors.grey.shade300;
-            } else if(allTodo[index][DBHelper.c_todoPriority]=='2'){
+            } else if(allTodo[index][DBHelper.c_todoPriority]==2){
               bgColor=Colors.yellow.shade300;
-            } else if(allTodo[index][DBHelper.c_todoPriority]=='3'){
+            } else if(allTodo[index][DBHelper.c_todoPriority]==1){
               bgColor=Colors.red.shade300;
             } else{
               bgColor=Colors.blue.shade300;
@@ -45,7 +45,8 @@ class _PendingState extends State<Pending> {
 
               child: CheckboxListTile(
                 fillColor: WidgetStatePropertyAll(bgColor),
-                 title: Text(allTodo[index][DBHelper.c_todoTitle],style: TextStyle(
+                  // tileColor: bgColor,
+                  title: Text(allTodo[index][DBHelper.c_todoTitle],style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                      decoration: allTodo[index][DBHelper.c_todoComplete]==1? TextDecoration.lineThrough:TextDecoration.none
