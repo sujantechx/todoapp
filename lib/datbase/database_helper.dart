@@ -71,6 +71,12 @@ class DBHelper{
     }
 
     ///fetch data
+  Future<List<Map<String,dynamic>>> fetchTodo()async {
+    var db = await initDB();
+    List<Map<String, dynamic>> allData = await db.query(tableTodoName);
+    return allData;
+  }
+
     Future<List<Map<String,dynamic>>> fetchAllTodo(int filter)async{
     var db= await initDB();
     List<Map<String,dynamic>> allData=await db.query(tableTodoName);

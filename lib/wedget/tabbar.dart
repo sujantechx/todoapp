@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:todoapp/pages/Home/Home.dart';
 import 'package:todoapp/pages/Home/home_page.dart';
 import 'package:todoapp/pages/add/add_task.dart';
 import 'package:todoapp/pages/tasks/tasks_TabBar.dart';
@@ -16,13 +17,16 @@ class _BottomTabBarState extends State<BottomTabBar> {
   final List<Widget> _pages=[
     HomePage(),
     AddTask(),
-    Tasks()
+    Tasks(),
+    HomePage1()
     // Profile()
   ];
   final List<String> _title=[
     "Home",
     'Add Task',
-    'Task'
+    'Task',
+    "Home1",
+
     // "Profile"
   ];
   @override
@@ -45,6 +49,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
               // BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Calender"),
               BottomNavigationBarItem(icon: Icon(Icons.add), label: "add"),
               BottomNavigationBarItem(icon: Icon(Icons.check), label: "Task"),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             ],
             type: BottomNavigationBarType.fixed,
           ),
