@@ -215,7 +215,8 @@ class _AddTaskState extends State<AddTask> {
                   bool check=await dbHelper!.addTodo(
                       title: _titleController.text,
                       desc:_taskDescController.text,
-                      deadline: _deadelineController.text
+                      deadline: _deadelineController.text,
+                      priority:priority
                   );
                   if(check){
                     getAllTodo();
