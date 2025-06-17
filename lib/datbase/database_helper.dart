@@ -76,24 +76,25 @@ class DBHelper{
     List<Map<String, dynamic>> allData = await db.query(tableTodoName);
     return allData;
   }
+  Future<List<Map<String, dynamic>>> fetchAllTodo(int filter) async {
+    var db = await initDB();
+    List<Map<String, dynamic>> allTodo = [];
 
-    Future<List<Map<String,dynamic>>> fetchAllTodo(int filter)async{
-    var db= await initDB();
-    List<Map<String,dynamic>> allData=await db.query(tableTodoName);
-
-    if(filter>0){
-      allData=await db.query(tableTodoName,
-      where: "$c_todoComplete=?",
-      whereArgs: [filter==1? 1:0],
-      // orderBy:
+    if (filter > 0) {
+      allTodo = await db.query(
+        tableTodoName,
+        where: "$c_todoComplete = ?",
+        whereArgs: [filter == 1 ? 1 : 0],
+      );
+    } else {
+      allTodo = await db.query(
+        tableTodoName,
+        orderBy: "$c_todoTaskDeadline DESC", // ✅ correct use of variable
       );
     }
-    else{
-      allData=await db.query(tableTodoName,
-          orderBy:"c_todoTaskDeadline desc");
-    }
-    return allData;
-    }
+    return allTodo;
+  }
+
 
 
   Future<List<Map<String,dynamic>>> fetchTodoPending()async{
