@@ -42,7 +42,6 @@ class _PendingState extends State<Pending> {
               bgColor=Colors.blue.shade300;
             }
             return InkWell(
-
               child: CheckboxListTile(
                 fillColor: WidgetStatePropertyAll(bgColor),
                   // tileColor: bgColor,
@@ -81,7 +80,7 @@ class _PendingState extends State<Pending> {
                 }
                   }),
             );
-            /*
+
             return Padding(
               padding: const EdgeInsets.all(18.0),
               child: Container(
@@ -142,7 +141,7 @@ class _PendingState extends State<Pending> {
             );
 
 
-             */
+
           },):Center(
           child: Text("No ToDo List!!"),
         ),
