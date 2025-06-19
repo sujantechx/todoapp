@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:todoapp/datbase/database_helper.dart';
 
 class AddTask extends StatefulWidget {
-  const AddTask({super.key});
-
+  final Map<String,dynamic>? task; /// if null then add , else Edit
+  const AddTask({ Key? key, this.task}): super(key:key);
   @override
   State<AddTask> createState() => _AddTaskState();
 }
@@ -97,6 +97,13 @@ class _AddTaskState extends State<AddTask> {
     super.initState();
     dbHelper=DBHelper.getInstance();
     getAllTodo();
+
+    if(widget.task!=null){
+      _titleController.text=widget.task![DBHelper.c_todoTitle];
+      _taskDescController.text=widget.task![DBHelper.c_todoDesc];
+      _deadelineController.text=widget.task![DBHelper.c_todoTaskDeadline];
+      priority=widget.task![DBHelper.c_todoPriority];
+    }
   }
   ///data fetch create function
   void getAllTodo()async{
@@ -204,7 +211,6 @@ class _AddTaskState extends State<AddTask> {
                   RadioMenuButton(value: 3, groupValue: priority, onChanged: (value){
                     priority= value!;
                     setState(() {
-
                     });
                   }, child: Text("High")),
                 ],
@@ -214,7 +220,25 @@ class _AddTaskState extends State<AddTask> {
               Container(
                 width: double.infinity,
                 child: ElevatedButton(onPressed: ()async{
-                  bool check=await dbHelper!.addTodo(
+                  if(widget.task==null){
+                    ///add new task
+                    await dbHelper!.addTodo(
+                        title: _titleController.text,
+                        desc:_taskDescController.text,
+                        deadline: _deadelineController.text,
+                        priority:priority
+                    );
+                  }else{
+                    ///update todo
+                    await dbHelper!.updateTodo(
+                      id: widget.task![DBHelper.c_todoId],
+                      title: _titleController.text,
+                      desc: _taskDescController.text,
+                      deadline: _deadelineController.text,
+                      priority:priority,
+                    );
+                  }
+                 /* bool check=await dbHelper!.addTodo(
                       title: _titleController.text,
                       desc:_taskDescController.text,
                       deadline: _deadelineController.text,
@@ -222,9 +246,10 @@ class _AddTaskState extends State<AddTask> {
                   );
                   if(check){
                     getAllTodo();
-                  }
+                  }*/
                   print("sucses fully add");
                   print("$priority");
+                  Navigator.pop(context,true);/// return succes to refresh list
                 },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -233,8 +258,6 @@ class _AddTaskState extends State<AddTask> {
                     ),
                     child: Text("Add Task")),
               )
-
-
             ],
           ),
         ),

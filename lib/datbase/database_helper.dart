@@ -137,13 +137,15 @@ class DBHelper{
     required int id,
       required String title,
       required String desc,
-      required String deadline
+      required String deadline,
+      required int priority
 })async{
     final db=await initDB();
     return await db.update(tableTodoName, {
       c_todoTitle:title,
       c_todoDesc:desc,
-      c_todoTaskDeadline:deadline
+      c_todoTaskDeadline:deadline,
+      c_todoPriority: priority
     },
     where: "$c_todoId=? ",whereArgs: [id],
     );

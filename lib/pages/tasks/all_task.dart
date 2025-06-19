@@ -10,6 +10,7 @@ class AllTask extends StatefulWidget {
 }
 class _AllTaskState extends State<AllTask> {
   DBHelper? dbHelper;
+  int? selectedIndex;/// her track  longpres index veriavel store
   List<Map<String,dynamic>> allTodo=[];
   @override
   void initState() {
@@ -31,60 +32,88 @@ class _AllTaskState extends State<AllTask> {
           itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(18.0),
-            child: Container(
-              height: 150,
-              width: double.infinity,
-              decoration:BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(allTodo[index][DBHelper.c_todoTitle],style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
-                      ),),
+            child: InkWell(
+              onLongPress: (){
+                setState(() {
+                  selectedIndex=index; /// her track  longpres index
+                });
+              },
+              child: Container(
+                height: 150,
+                width: double.infinity,
+                decoration:BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
 
-                      Text(allTodo[index][DBHelper.c_todoDesc],style: TextStyle(
-                        fontSize: 12,
-                      ),),
-                      SizedBox(height: 10,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(allTodo[index][DBHelper.c_todoTitle],style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),),
 
-                      Text(allTodo[index][DBHelper.c_todoTaskDeadline],style: TextStyle(
-                        fontSize: 12,
-                      ),),
+                        Text(allTodo[index][DBHelper.c_todoDesc],style: TextStyle(
+                          fontSize: 12,
+                        ),),
+                        SizedBox(height: 10,),
 
-
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => AddTask(),));
-                      }, icon: Icon(Icons.edit)),
-                      SizedBox(height: 10,),
-
-                      Row(
-                        children: [
-                          Text("Mark as complete  ",style: TextStyle(
-                            fontSize: 12,
-                          ),),
-                          Icon(Icons.check_box_outline_blank)
-                        ],
-                      ),
+                        Text(allTodo[index][DBHelper.c_todoTaskDeadline],style: TextStyle(
+                          fontSize: 12,
+                        ),),
 
 
-                    ],
-                  )
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
 
-                ],
+                        /// longpres to work
+
+                        if (selectedIndex == index) // Show buttons only if long-pressed
+                          Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.edit, color: Colors.blue),
+                                  onPressed: ()async{
+                                    final result= await Navigator.push(
+                                        context, MaterialPageRoute(
+                                      builder: (context) => AddTask(task: allTodo[index],),));
+
+                                    if(result==true){
+                                      getAllTodo(); ///refresh list if task was update
+                                    }
+                                  }
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                  onPressed: ()async{
+                                   await dbHelper!.deleteTodo(allTodo[index][DBHelper.c_todoId]);
+                                   getAllTodo();
+                                  }
+                                ),]
+                          ),
+
+                        Row(
+                          children: [
+                            Text("Mark as complete  ",style: TextStyle(
+                              fontSize: 12,
+                            ),),
+                            Icon(Icons.check_box_outline_blank)
+                          ],
+                        ),
+
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           );

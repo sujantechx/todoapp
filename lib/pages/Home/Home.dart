@@ -12,6 +12,7 @@ class HomePage1 extends StatefulWidget {
 }
 class _HomePageState extends State<HomePage1> {
 DBHelper ? dbHelper;
+int ? selectedIndex;
   List<Map<String, dynamic>> mTodo = [];
   int filter = 0;
 
@@ -87,11 +88,8 @@ DBHelper ? dbHelper;
                          }
                          return InkWell(
                            onLongPress: (){
-                             showModalBottomSheet(context: context, builder: (_){
-                               return Container(
-                                 height: 200,
-                                 color: Colors.white,
-                               );
+                             setState(() {
+                               selectedIndex=index;
                              });
                            },
                            child: CheckboxListTile(
@@ -106,9 +104,28 @@ DBHelper ? dbHelper;
                                        decoration: mTodo[index][DBHelper.c_todoComplete]==1? TextDecoration.lineThrough : TextDecoration.none
                                    ),),
                                    SizedBox(height: 10,),
+                                   if(selectedIndex==index)
+                                   Row(
+                                     children: [
+                                       IconButton(onPressed: ()async{
+                                         final result=await Navigator.push(context,
+                                             MaterialPageRoute(builder:  (context) => AddTask(task:mTodo[index],),));
+                                         // if(result==true){
+                                         //   getAllTodo()
+                                         // }
+                                       },
+                                           icon: Icon(Icons.edit,color: Colors.blue,)),
+                                       SizedBox(width: 10,),
+                                       IconButton(onPressed: (){
+
+                                       },
+                                           icon: Icon(Icons.delete,color: Colors.red,))
+                                     ],
+                                   ),
                                    Text(mTodo[index][DBHelper.c_todoTaskDeadline], style: TextStyle(
                                        decoration: mTodo[index][DBHelper.c_todoComplete]==1? TextDecoration.lineThrough : TextDecoration.none
                                    ),),
+
                                  ],
                                ),
                                value: mTodo[index][DBHelper.c_todoComplete]==1, onChanged: (value) async{
