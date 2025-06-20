@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../datbase/database_helper.dart';
+import '../DataBase/database_sqlite.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,9 +36,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CircleAvatar(
-                    child: Image(image: AssetImage("assets/images/profile.png",),fit: BoxFit. cover,width: 50,height: 50,),
+                    backgroundColor: Colors.blue,
+                    // child: Image(image: AssetImage("assets/images/profile.png",),fit: BoxFit. cover,width: 50,height: 50,),
                   ),
-                  
+
                   SizedBox(width: 100,),
                   Icon(Icons.search_rounded,size: 40,),
                   Icon(Icons.notifications,size: 30,)
@@ -48,13 +48,13 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 10,),
 
               Text("Hello Sujan ",style: TextStyle(
-                 fontSize: 30,
-                fontWeight: FontWeight.bold
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
               ),),
               SizedBox(height: 6,),
 
               Text("Let's get started keeping your task organized ",style: TextStyle(
-                  fontSize: 15,
+                fontSize: 15,
               ),),
               SizedBox(height: 10,),
               /// Listview builder

@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:todoapp/pages/tasks/all_task.dart';
-import 'package:todoapp/pages/tasks/complete.dart';
-import 'package:todoapp/pages/tasks/pending.dart';
+import 'package:todoapp/tasks/pending.dart';
+
+import 'all_task.dart';
+import 'complete.dart';
 
 class Tasks extends StatefulWidget {
   const Tasks({super.key});

@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:todoapp/datbase/database_helper.dart';
+
+import '../DataBase/database_sqlite.dart';
 
 class AddTask extends StatefulWidget {
   final Map<String,dynamic>? task; /// if null then add , else Edit
@@ -133,15 +134,15 @@ class _AddTaskState extends State<AddTask> {
               Container(
                 height: 50,
                 decoration:  BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.white
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white
                 ),
                 child: TextField(
                   controller: _titleController,
                   decoration: InputDecoration(
-                    hintText: " eg Buy a bike",
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none
+                      hintText: " eg Buy a bike",
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none
                   ),
                 ),
               ),
@@ -179,7 +180,7 @@ class _AddTaskState extends State<AddTask> {
                     controller: _deadelineController,
                     enabled: false,///input
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.arrow_drop_down_outlined,size: 35,),
+                        suffixIcon: Icon(Icons.arrow_drop_down_outlined,size: 35,),
                         hintText: " select date and time",
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none
@@ -192,8 +193,8 @@ class _AddTaskState extends State<AddTask> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Set as priority",style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20
                   ),),
 
                   RadioMenuButton(value: 1, groupValue: priority, onChanged: (value){
@@ -238,7 +239,7 @@ class _AddTaskState extends State<AddTask> {
                       priority:priority,
                     );
                   }
-                 /* bool check=await dbHelper!.addTodo(
+                  /* bool check=await dbHelper!.addTodo(
                       title: _titleController.text,
                       desc:_taskDescController.text,
                       deadline: _deadelineController.text,
@@ -252,9 +253,9 @@ class _AddTaskState extends State<AddTask> {
                   Navigator.pop(context,true);/// return succes to refresh list
                 },
                     style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      backgroundColor: Color(0xffecbc16),
-                      foregroundColor: Colors.white
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        backgroundColor: Color(0xffecbc16),
+                        foregroundColor: Colors.white
                     ),
                     child: Text("Add Task")),
               )
@@ -263,7 +264,7 @@ class _AddTaskState extends State<AddTask> {
         ),
       ),
     );
-    }
+  }
 }
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/datbase/database_helper.dart';
-import 'package:todoapp/pages/add/add_task.dart';
+import '../DataBase/database_sqlite.dart';
+import '../UiScreen/add.dart';
 
 class AllTask extends StatefulWidget {
   const AllTask({super.key});

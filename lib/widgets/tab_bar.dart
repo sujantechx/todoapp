@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:todoapp/pages/Home/Home.dart';
-import 'package:todoapp/pages/Home/home_page.dart';
-import 'package:todoapp/pages/add/add_task.dart';
-import 'package:todoapp/pages/tasks/tasks_TabBar.dart';
+import '../CubitList/list_page.dart';
+import '../UiScreen/add.dart';
+import '../UiScreen/home.dart';
+import '../UiScreen/task.dart';
+import '../UiScreen/task2.dart';
 
 class BottomTabBar extends StatefulWidget {
   const BottomTabBar({super.key});
@@ -17,8 +18,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
   final List<Widget> _pages=[
     HomePage(),
     AddTask(),
-    Tasks(),
-    HomePage1()
+    Task(),
+    Task2(),
+    ListPage()
     // Profile()
   ];
   final List<String> _title=[
@@ -49,7 +51,8 @@ class _BottomTabBarState extends State<BottomTabBar> {
               // BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Calender"),
               BottomNavigationBarItem(icon: Icon(Icons.add), label: "add"),
               BottomNavigationBarItem(icon: Icon(Icons.check), label: "Task"),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.check), label: "Task2"),
+              BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
             ],
             type: BottomNavigationBarType.fixed,
           ),
