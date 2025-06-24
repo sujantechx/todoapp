@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import '../CubitList/list_page.dart';
+import '../Profile/profile.dart';
 import '../UiScreen/add.dart';
 import '../UiScreen/home.dart';
 import '../UiScreen/task.dart';
@@ -19,9 +20,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
     HomePage(),
     AddTask(),
     Task(),
-    Task2(),
-    ListPage()
-    // Profile()
+    // Task2(),
+    Profile(),
+    // ListPage(),
   ];
   final List<String> _title=[
     "Home",
@@ -51,8 +52,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
               // BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Calender"),
               BottomNavigationBarItem(icon: Icon(Icons.add), label: "add"),
               BottomNavigationBarItem(icon: Icon(Icons.check), label: "Task"),
-              BottomNavigationBarItem(icon: Icon(Icons.check), label: "Task2"),
-              BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
+              // BottomNavigationBarItem(icon: Icon(Icons.check), label: "Task2"),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "profile"),
+              // BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
             ],
             type: BottomNavigationBarType.fixed,
           ),

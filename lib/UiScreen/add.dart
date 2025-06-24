@@ -189,32 +189,35 @@ class _AddTaskState extends State<AddTask> {
                 ),
               ),
               SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Set as priority",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
-                  ),),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text("Set as priority",style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20
+                    ),),
 
-                  RadioMenuButton(value: 1, groupValue: priority, onChanged: (value){
-                    priority= value!;
-                    setState(() {
+                    RadioMenuButton(value: 1, groupValue: priority, onChanged: (value){
+                      priority= value!;
+                      setState(() {
 
-                    });
-                  }, child: Text("Low")),
-                  RadioMenuButton(value: 2, groupValue: priority, onChanged: (value){
-                    priority= value!;
-                    setState(() {
+                      });
+                    }, child: Text("Low")),
+                    RadioMenuButton(value: 2, groupValue: priority, onChanged: (value){
+                      priority= value!;
+                      setState(() {
 
-                    });
-                  }, child: Text("Mid")),
-                  RadioMenuButton(value: 3, groupValue: priority, onChanged: (value){
-                    priority= value!;
-                    setState(() {
-                    });
-                  }, child: Text("High")),
-                ],
+                      });
+                    }, child: Text("Mid")),
+                    RadioMenuButton(value: 3, groupValue: priority, onChanged: (value){
+                      priority= value!;
+                      setState(() {
+                      });
+                    }, child: Text("High")),
+                  ],
+                ),
               ),
 
               SizedBox(height: 210,),
@@ -250,7 +253,7 @@ class _AddTaskState extends State<AddTask> {
                   }*/
                   print("sucses fully add");
                   print("$priority");
-                  Navigator.pop(context,true);/// return succes to refresh list
+                  Navigator.pop(context,true,);/// return succes to refresh list
                 },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

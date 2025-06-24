@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:todoapp/widgets/tab_bar.dart';
+import 'package:todoapp/Splash/splash_screen.dart';
 import 'CubitList/cubit_list.dart';
 import 'DataBase/database_sqlite.dart';
 import 'StateManged/cubit/cubit.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return  MaterialApp(
       title: "todo GSM",
-      home: BottomTabBar(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
