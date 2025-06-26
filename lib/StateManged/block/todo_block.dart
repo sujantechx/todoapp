@@ -8,31 +8,33 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   DBHelper dbHelper;
 
   TodoBloc({required this.dbHelper}) : super(TodoState(allTodo: [])) {
+
     on<AddTodoEvent>((event, emit) async{
 
       bool check = await dbHelper.addTodo(
         title: event.title,
         desc: event.desc,
-        priority: event.priority, deadline: '',
+        priority: event.priority,
+        deadline: event.deadline,
       );
 
       if(check){
-        List<Map<String, dynamic>> mTodos = await dbHelper.fetchAllTodo();
+        List<Map<String, dynamic>> mTodos = await dbHelper.fetchTodo();
         emit(TodoState(allTodo: mTodos));
       }
 
     });
 
     on<FetchInitialTodoEvent>((event, emit) async{
-      List<Map<String, dynamic>> mTodos = await dbHelper.fetchAllTodo();
+      List<Map<String, dynamic>> mTodos = await dbHelper.fetchTodo();
       emit(TodoState(allTodo: mTodos));
     });
 
     on<CompleteTodoEvent>((event, emit) async{
-
-      bool check = await dbHelper.completeTodo(id: event.id, isCompleted: event.isCompleted);
+      bool check = await dbHelper.updateTodoCompleted(
+          id: event.id, isCompleted: event.isCompleted);
       if(check){
-        List<Map<String, dynamic>> mTodos = await dbHelper.fetchAllTodo();
+        List<Map<String, dynamic>> mTodos = await dbHelper.fetchTodo();
         emit(TodoState(allTodo: mTodos));
       }
 

@@ -4,11 +4,13 @@ class AddTodoEvent extends TodoEvent {
   String title;
   String desc;
   int priority;
+  String deadline;
 
   AddTodoEvent({
     required this.title,
     required this.desc,
     required this.priority,
+    required this.deadline
   });
 }
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/Splash/splash_screen.dart';
+import 'package:todoapp/StateManged/block/todo_block.dart';
 import 'CubitList/cubit_list.dart';
 import 'DataBase/database_sqlite.dart';
 import 'StateManged/cubit/cubit.dart';
@@ -16,7 +18,9 @@ void main() {
                   dbHelper: DBHelper.getInstance(),
               )),
             BlocProvider(create: (context)=>ListCubit()),
-            BlocProvider(create: (context)=>TodoCubit(dbHelper: DBHelper.getInstance()))
+            BlocProvider(create: (context)=>TodoCubit(dbHelper: DBHelper.getInstance())),
+            ///used block
+            BlocProvider(create: (context)=>TodoBloc(dbHelper: DBHelper.getInstance()))
           ] , child: MyApp()
       ),
   );

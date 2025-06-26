@@ -99,13 +99,15 @@ class DBHelper{
 
   Future<List<Map<String,dynamic>>> fetchTodoPending()async{
     var db= await initDB();
-    List<Map<String,dynamic>> allData=await db.query(tableTodoName,where: '$c_todoComplete=?',whereArgs: [0]);
+    List<Map<String,dynamic>> allData=await db.query(
+        tableTodoName,where: '$c_todoComplete=?',whereArgs: [0]);
     return allData;
   }
 
   Future<List<Map<String,dynamic>>> fetchTodoComplete()async{
     var db= await initDB();
-    List<Map<String,dynamic>> allData=await db.query(tableTodoName,where: '$c_todoComplete=?',whereArgs: [1]);
+    List<Map<String,dynamic>> allData=await db.query(
+        tableTodoName,where: '$c_todoComplete=?',whereArgs: [1]);
     return allData;
   }
 
